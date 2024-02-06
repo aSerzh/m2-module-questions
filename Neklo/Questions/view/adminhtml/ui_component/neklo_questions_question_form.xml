@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">
+                neklo_questions_question_form.neklo_questions_question_form_data_source
+            </item>
+        </item>
+        <item name="template" xsi:type="string">
+            templates/form/collapsible
+        </item>
+    </argument>
+    <settings>
+        <namespace>neklo_questions_question_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>neklo_questions_question_form.neklo_questions_question_form_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="save" class="Neklo\Questions\Block\Adminhtml\Questions\Edit\Button\Save"/>
+            <button name="back" class="Neklo\Questions\Block\Adminhtml\Questions\Edit\Button\Back"/>
+        </buttons>
+    </settings>
+    <dataSource name="neklo_questions_question_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="Neklo\Questions\Ui\DataProvider\Questions"
+                      name="neklo_questions_question_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="neklo_questions_question_fieldset">
+        <settings>
+            <label/>
+        </settings>
+        <field name="question_id" formElement="hidden"/>
+        <field name="question" sortOrder="10" formElement="input">
+            <settings>
+                <label translate="true">Question:</label>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="answer" sortOrder="20" formElement="textarea">
+            <settings>
+                <label translate="true">Add Answer:</label>
+            </settings>
+        </field>
+        <field name="status" sortOrder="30" formElement="select">
+            <settings>
+                <label translate="true">Status:</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Neklo\Questions\Model\Config\Source\CustomStatus"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+
+    <fieldset name="answers_list" sortOrder="40">
+        <settings>
+            <collapsible>false</collapsible>
+            <label translate="true">Answer's List</label>
+        </settings>
+        <container name="answers_list_description" template="ui/form/components/complex">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string"/>
+                </item>
+            </argument>
+        </container>
+        <insertListing name="neklo_question_answers_listing">
+            <settings>
+                <autoRender>true</autoRender>
+<!--                <loading>true</loading>-->
+                <dataScope>neklo_question_answers_listing</dataScope>
+                <ns>neklo_question_answers_listing</ns>
+                <externalProvider>neklo_question_answers_listing.neklo_question_answers_listing_data_source</externalProvider>
+                <selectionsProvider>neklo_question_answers_listing.neklo_question_answers_listing.neklo_question_answers_columns.ids</selectionsProvider>
+                <dataLinks>
+                    <imports>false</imports>
+                    <exports>true</exports>
+                </dataLinks>
+                <imports>
+                    <link name="questionId">${ $.provider }:data.id</link>
+                </imports>
+                <exports>
+                    <link name="questionId">${ $.externalProvider }:params.question_id</link>
+                </exports>
+            </settings>
+        </insertListing>
+    </fieldset>
+</form>

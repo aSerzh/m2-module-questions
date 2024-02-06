@@ -1,0 +1,17 @@
+<!--@subject New Question from {{var name}} ({{var email}}) @-->
+
+<!--@vars {
+"var name":"Name",
+"var email":"Email",
+"var question":"Question text",
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p>Dear Admin,</p>
+<p>Received a new question from:</p>
+<p>Name: {{var name}}</p>
+<p>Email: {{var email}}</p>
+<p>Question: {{var question}}</p>
+
+{{template config_path="design/email/footer_template"}}

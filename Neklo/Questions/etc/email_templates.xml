@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="question_email_template"
+              label="Template when receiving a new question"
+              file="question.html"
+              type="html"
+              module="Neklo_Questions"
+              area="frontend"/>
+    <template id="answer_email_template"
+              label="Template when a question is answered"
+              file="answer.html"
+              type="html"
+              module="Neklo_Questions"
+              area="frontend"/>
+</config>

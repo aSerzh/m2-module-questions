@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">
+                neklo_questions_question_listing.neklo_questions_question_listing_data_source
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <deps>
+            <dep>
+                neklo_questions_question_listing.neklo_questions_question_listing_data_source
+            </dep>
+        </deps>
+        <spinner>neklo_questions_question_columns</spinner>
+    </settings>
+    <dataSource name="neklo_questions_question_listing_data_source"
+                component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+        </settings>
+        <aclResource>Neklo_Questions::questions</aclResource>
+        <dataProvider name="neklo_questions_question_listing_data_source"
+                      class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <paging name="listing_paging">
+            <settings>
+                <pageSize>5</pageSize>
+            </settings>
+        </paging>
+        <columnsControls name="columns_controls"/>
+        <bookmark name="bookmarks"/>
+        <filters name="listing_filters"/>
+        <filterSearch name="fulltext"/>
+    </listingToolbar>
+    <columns name="neklo_questions_question_columns">
+        <column name="id">
+            <settings>
+                <label translate="true">ID</label>
+                <filter>textRange</filter>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="name">
+            <settings>
+                <label translate="true">Name</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="email">
+            <settings>
+                <label translate="true">Email</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="question">
+            <settings>
+                <label translate="true">Question</label>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Status</label>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="Neklo\Questions\Ui\Component\Listing\Filter\CustomStatus" />
+            </settings>
+        </column>
+        <actionsColumn name="actions"
+                       class="Neklo\Questions\Ui\Component\Listing\Column\Actions"/>
+    </columns>
+</listing>

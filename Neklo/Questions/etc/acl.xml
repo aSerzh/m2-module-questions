@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+                    <resource id="Neklo_Questions::neklo" title="Neklo" translate="title" sortOrder="900">
+                        <resource id="Neklo_Questions::questions" title="Questions And Answers" translate="title">
+                            <resource id="Neklo_Questions::questions_save" title="Save" translate="title"/>
+                            <resource id="Neklo_Questions::questions_delete" title="Delete" translate="title"/>
+                            <resource id="Neklo_Questions::questions_guest" title="Guest Options" translate="title"/>
+                            <resource id="Neklo_Questions::questions_cron" title="Cron Options" translate="title"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

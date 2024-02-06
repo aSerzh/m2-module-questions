@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">neklo_question_answers_listing.neklo_question_answers_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <deps>
+            <dep>neklo_question_answers_listing.neklo_question_answers_listing_data_source</dep>
+        </deps>
+        <spinner>neklo_question_answers_columns</spinner>
+    </settings>
+    <dataSource name="neklo_question_answers_listing_data_source"
+                component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+        </settings>
+        <aclResource>Neklo_Questions::questions</aclResource>
+        <dataProvider name="neklo_question_answers_listing_data_source"
+                      class="Neklo\Questions\Ui\DataProvider\Answers">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <paging name="listing_paging"/>
+        <columnsControls name="columns_controls"/>
+        <bookmark name="bookmarks"/>
+        <filters name="listing_filters"/>
+        <filterSearch name="fulltext"/>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <settings>
+                <selectProvider>neklo_question_answers_listing.neklo_question_answers_listing.neklo_question_answers_columns.ids</selectProvider>
+                <indexField>id</indexField>
+            </settings>
+            <action name="delete">
+                <settings>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                    <url path="questions/question/massDelete"/>
+                    <confirm>
+                        <title translate="true">Delete answers</title>
+                        <message translate="true">Are you sure you want to delete the selected answer(s)?</message>
+                    </confirm>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+    <columns name="neklo_question_answers_columns" class="Magento\Ui\Component\Listing\Columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">neklo_question_answers_listing.neklo_question_answers_listing.neklo_question_answers_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="questions/question/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="selectProvider" xsi:type="string">neklo_question_answers_listing.neklo_question_answers_listing.neklo_question_answers_columns.ids</param>
+                <param name="indexField" xsi:type="string">id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+            </editorConfig>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="id">
+            <settings>
+                <label translate="true">ID</label>
+                <filter>textRange</filter>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="question_id">
+            <settings>
+                <label translate="true">Question ID</label>
+                <filter>textRange</filter>
+            </settings>
+        </column>
+        <column name="answer">
+            <settings>
+                <label translate="true">Answer</label>
+                <filter>textRange</filter>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+    </columns>
+</listing>

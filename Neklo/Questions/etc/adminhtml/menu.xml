@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Neklo_Questions::neklo"
+            title="Neklo"
+            translate="title"
+            module="Neklo_Questions"
+            sortOrder="75"
+            resource="Neklo_Questions::neklo"
+        />
+        <add
+            id="Neklo_Questions::questions"
+            title="Questions And Answers"
+            translate="title"
+            module="Neklo_Questions"
+            sortOrder="1"
+            parent="Neklo_Questions::neklo"
+            action="questions/question"
+            resource="Neklo_Questions::questions"
+        />
+    </menu>
+</config>

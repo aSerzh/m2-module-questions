@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="neklo">
+            <label>Neklo</label>
+        </tab>
+        <section id="neklo_questions" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Questions Option</label>
+            <tab>neklo</tab>
+            <resource>Neklo_Questions::questions_guest</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="allow_guest_questions" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Guest Questions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="neklo_cron" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Cron Setting</label>
+            <tab>neklo</tab>
+            <resource>Neklo_Questions::questions_cron</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="cron_schedule" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cron Schedule</label>
+                    <validate>validate-cron-expression</validate>
+                    <backend_model>Magento\Cron\Model\Config\Backend\Product\Alert</backend_model>
+                    <tooltip><![CDATA[Example schedule: <strong>*/5 * * * *</strong> (every 5 minutes). Use the standard cron format.]]></tooltip>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

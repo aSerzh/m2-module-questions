@@ -1,0 +1,36 @@
+{
+    "neklo_questions": {
+        "column": {
+            "id": true,
+            "name": true,
+            "email": true,
+            "question": true,
+            "status": true,
+            "customer_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "NEKLO_QUESTIONS_NAME_EMAIL_QUESTION_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "neklo_question_answers": {
+        "column": {
+            "id": true,
+            "question_id": true,
+            "answer": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "NEKLO_QUESTION_ANSWERS_QUESTION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "NEKLO_QUESTION_ANSWERS_QUESTION_ID_NEKLO_QUESTIONS_ID": true
+        }
+    }
+}

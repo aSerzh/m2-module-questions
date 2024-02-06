@@ -1,0 +1,74 @@
+<?php
+/** @var $block Magento\Framework\View\Element\Template */
+/** @var Magento\Framework\Escaper $escaper */
+?>
+
+<style>
+    .button-submit {
+        background-color: #1979c3;
+        color: #FFFFFF;
+    }
+    .button-submit:hover {
+        background-color: #11568c;
+        color: #FFFFFF;
+    }
+    .button-submit:visited {
+        color: #FFFFFF;
+    }
+    .button-content {
+        text-align: right;
+    }
+    .button-back-to-questions {
+        padding: 10px;
+        margin-left: 10px;
+        /*margin-bottom: 10px;*/
+        background-color: #1979c3;
+        color: #FFFFFF;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: bold
+    }
+    .button-back-to-questions:hover {
+        background-color: #11568c;
+        color: #FFFFFF;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .button-back-to-questions:visited {
+        color: #FFFFFF;
+    }
+
+    .text {
+        font-weight: bold;
+        flex-grow: 1;
+        max-width: 75%;
+    }
+
+    .field {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="button-content">
+    <a href="<?= $escaper->escapeUrl($block->getUrl('store/questions/')) ?>" class="button-back-to-questions" role="button">
+        <?= $escaper->escapeHtml(__('Back to Questions')) ?>
+    </a>
+</div>
+
+<form action="<?= $escaper->escapeHtmlAttr($block->getUrl('store/questions/submit')) ?>" method="post">
+    <div class="field">
+        <label class="text" for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required />
+    </div>
+    <div class="field">
+        <label class="text" for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+    </div>
+    <div class="field">
+        <label class="text" for="question">Question:</label>
+        <textarea id="question" name="question" placeholder="Ask your question" required></textarea>
+    </div>
+    <div class="actions">
+        <button class="button-submit" type="submit">Send</button>
+    </div>
+</form>

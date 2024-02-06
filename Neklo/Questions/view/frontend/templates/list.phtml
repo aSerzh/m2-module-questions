@@ -1,0 +1,128 @@
+<?php
+/** @var Magento\Framework\View\Element\Template $block */
+/** @var Neklo\Questions\ViewModel\QuestionsList $viewModel */
+/** @var Magento\Framework\Escaper $escaper */
+
+$viewModel = $block->getData('question_view_model');
+$questionsWithAnswers = $viewModel->getFilteredQuestionsWithAnswers();
+$customerId = $viewModel->getCurrentCustomerId();
+?>
+<style>
+    .question-block {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    .question-author {
+        font-weight: bold;
+    }
+    .question-content {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 10px;
+        background-color: #e8e7e7;
+    }
+    .question-text {
+        font-style: italic;
+        flex-grow: 1;
+        max-width: 75%;
+    }
+    .question-details {
+        font-size: 0.9em;
+        color: #666;
+        margin-left: 20px;
+    }
+
+    .answer-block {
+        margin-top: 10px;
+        padding: 5px;
+        background-color: #f9f9f9;
+        display: flex;
+        align-items: flex-start;
+    }
+    .answer-text {
+        margin-bottom: 5px;
+        flex-grow: 1;
+    }
+    .answer-time {
+        font-size: 0.8em;
+        color: #666;
+        margin-left: 20px;
+    }
+
+    .current-customer {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #e5f1fc;
+    }
+
+    .button-content {
+        text-align: right;
+    }
+    .button-add-new {
+        padding: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        background-color: #1979c3;
+        color: #FFFFFF;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: bold
+    }
+    .button-add-new:hover {
+        background-color: #11568c;
+        color: #FFFFFF;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .button-add-new:visited {
+        color: #FFFFFF;
+    }
+</style>
+
+<div class="button-content">
+    <a href="<?= $escaper->escapeUrl($block->getUrl('store/questions/add')) ?>" class="button-add-new" role="button">
+        <?= $escaper->escapeHtml(__('Add New Question')) ?>
+    </a>
+</div>
+
+<?php foreach ($questionsWithAnswers as $item): ?>
+    <div class="<?= $viewModel->getQuestionBlockClass((int) $item['question']['customer_id']) ?>">
+        <!-- Name who asked the question -->
+        <div class="question-author"><?= __('Name: ') ?>
+            <?= $escaper->escapeHtml($item['question']['name']) ?>
+        </div>
+
+        <!-- The question itself, status and time -->
+        <div class="question-content">
+            <div class="question-text"><?= __('Question: ') ?>
+                <?= $escaper->escapeHtml($item['question']['question']) ?>
+            </div>
+            <div class="question-details">
+                <span class="question-status"><?= __('Status: ') ?>
+                    <?= $escaper->escapeHtml($item['question']['status']) ?>
+                </span>
+                <br/>
+                <span class="question-time">
+                    <?= $viewModel->formatDate($item['question']['created_at']) ?>
+                </span>
+            </div>
+        </div>
+
+        <div class="answer">
+            <!-- Answering the question -->
+            <?php if (!empty($item['answers'])): ?>
+                <span><?= __('Answer(s): ') ?></span>
+                <?php foreach ($item['answers'] as $answer): ?>
+                    <div class="answer-block">
+                        <div class="answer-text"><?= $escaper->escapeHtml($answer['answer']) ?></div>
+                        <div class="answer-time"><?= __('Time: ') ?>
+                            <?= $viewModel->formatDate($answer['created_at']) ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endforeach; ?>
